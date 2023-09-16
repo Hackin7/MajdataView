@@ -24,6 +24,8 @@ public class JsonDataLoader : MonoBehaviour
     public RuntimeAnimatorController BreakShine;
     public RuntimeAnimatorController HoldShine;
 
+    public GameObject[] physicalButtons = new GameObject[8];
+
     public Text diffText;
     public Text levelText;
     public Text titleText;
@@ -100,6 +102,9 @@ public class JsonDataLoader : MonoBehaviour
                         NDCompo.time = (float)timing.time;
                         NDCompo.startPosition = note.startPosition;
                         NDCompo.speed = noteSpeed * timing.HSpeed;
+
+                        GameObject.Find("Bot").GetComponent<MaimaiIKRig>().press((float)timing.time, NDCompo.startPosition);
+                        physicalButtons[NDCompo.startPosition - 1].GetComponent<PhysicalButton>().press((float)timing.time);
                     }
                     if (note.noteType == SimaiNoteType.Hold)
                     {
@@ -121,6 +126,9 @@ public class JsonDataLoader : MonoBehaviour
                         NDCompo.speed = noteSpeed * timing.HSpeed;
                         NDCompo.isEX = note.isEx;
                         NDCompo.isBreak = note.isBreak;
+
+                        GameObject.Find("Bot").GetComponent<MaimaiIKRig>().press((float)timing.time, NDCompo.startPosition);
+                        physicalButtons[NDCompo.startPosition - 1].GetComponent<PhysicalButton>().press((float)timing.time);
                     }
                     if (note.noteType == SimaiNoteType.TouchHold)
                     {
@@ -130,6 +138,7 @@ public class JsonDataLoader : MonoBehaviour
                         NDCompo.lastFor = (float)note.holdTime;
                         NDCompo.speed = touchSpeed * timing.HSpeed;
                         NDCompo.isFirework = note.isHanabi;
+
                     }
                     if (note.noteType == SimaiNoteType.Touch)
                     {

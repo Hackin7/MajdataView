@@ -15,11 +15,11 @@ public class HttpHandler : MonoBehaviour
     HttpListener http = new HttpListener();
     Task listen;
     string request = "";
-
+    private int sceneNo = 2;
 
     void Start()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(sceneNo);
         http.AuthenticationSchemes = AuthenticationSchemes.Anonymous;
         http.Prefixes.Add("http://localhost:8013/");
         http.Start();
@@ -101,7 +101,7 @@ public class HttpHandler : MonoBehaviour
         if (data.control == EditorControlMethod.Stop)
         {
             timeProvider.ResetStartTime();
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(sceneNo);
         }
         if(data.control == EditorControlMethod.Continue)
         {
