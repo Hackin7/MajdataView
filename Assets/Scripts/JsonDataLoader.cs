@@ -48,8 +48,9 @@ public class JsonDataLoader : MonoBehaviour
 
     public void LoadJson(string json, float ignoreOffset)
     {
+        GameObject.Find("NotesParser").GetComponent<NotesParser>().receiveData(json, ignoreOffset);
         var loadedData = JsonConvert.DeserializeObject<Majson>(json);
-
+        
         diffText.text = loadedData.difficulty;
         levelText.text = loadedData.level;
         titleText.text = loadedData.title;
@@ -102,9 +103,6 @@ public class JsonDataLoader : MonoBehaviour
                         NDCompo.time = (float)timing.time;
                         NDCompo.startPosition = note.startPosition;
                         NDCompo.speed = noteSpeed * timing.HSpeed;
-
-                        GameObject.Find("Bot").GetComponent<MaimaiIKRig>().press((float)timing.time, NDCompo.startPosition);
-                        physicalButtons[NDCompo.startPosition - 1].GetComponent<PhysicalButton>().press((float)timing.time);
                     }
                     if (note.noteType == SimaiNoteType.Hold)
                     {
@@ -126,9 +124,6 @@ public class JsonDataLoader : MonoBehaviour
                         NDCompo.speed = noteSpeed * timing.HSpeed;
                         NDCompo.isEX = note.isEx;
                         NDCompo.isBreak = note.isBreak;
-
-                        GameObject.Find("Bot").GetComponent<MaimaiIKRig>().press((float)timing.time, NDCompo.startPosition);
-                        physicalButtons[NDCompo.startPosition - 1].GetComponent<PhysicalButton>().press((float)timing.time);
                     }
                     if (note.noteType == SimaiNoteType.TouchHold)
                     {
@@ -138,7 +133,7 @@ public class JsonDataLoader : MonoBehaviour
                         NDCompo.lastFor = (float)note.holdTime;
                         NDCompo.speed = touchSpeed * timing.HSpeed;
                         NDCompo.isFirework = note.isHanabi;
-
+                        GameObject.Find("Bot").GetComponent<MaimaiIKRig>().slide((float)timing.time, note.startPosition, GOnote);
                     }
                     if (note.noteType == SimaiNoteType.Touch)
                     {
@@ -150,6 +145,7 @@ public class JsonDataLoader : MonoBehaviour
                         if (timing.noteList.Count > 1) NDCompo.isEach = true;
                         NDCompo.speed = touchSpeed * timing.HSpeed;
                         NDCompo.isFirework = note.isHanabi;
+                        GameObject.Find("Bot").GetComponent<MaimaiIKRig>().slide((float)timing.time, note.startPosition, GOnote);
                     }
                     if (note.noteType == SimaiNoteType.Slide)
                     {
@@ -555,6 +551,8 @@ public class JsonDataLoader : MonoBehaviour
         WifiCompo.LastFor = (float)note.slideTime;
         WifiCompo.sortIndex = slideLayer;
         slideLayer += 5;
+
+        GameObject.Find("Bot").GetComponent<MaimaiIKRig>().slide((float)timing.time, note.startPosition, slideWifi);
     }
 
     void InstantiateStar(SimaiTimingPoint timing, SimaiNote note, bool isGroupPart, bool isGroupPartEnd)
@@ -644,6 +642,8 @@ public class JsonDataLoader : MonoBehaviour
         //SliCompo.sortIndex = -7000 + (int)((lastNoteTime - timing.time) * -100) + sort * 5;
         SliCompo.sortIndex = slideLayer++;
         slideLayer += 5;
+
+        GameObject.Find("Bot").GetComponent<MaimaiIKRig>().slide((float)timing.time, note.startPosition, slide_star);
     }
     bool detectJustType(string content)
     {
