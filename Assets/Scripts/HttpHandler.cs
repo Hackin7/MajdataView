@@ -17,7 +17,7 @@ public class HttpHandler : MonoBehaviour
     string request = "";
     private int sceneNo = 2;
     //private int sceneNo = 1; //2 for 3D
-
+    private bool configured = false;
     void Start()
     {
         SceneManager.LoadScene(sceneNo);
@@ -59,6 +59,20 @@ public class HttpHandler : MonoBehaviour
 
     private void Update()
     {
+        // Fix Outline by parenting to scene
+        if (!configured){  
+            try {
+                Transform parent = GameObject.Find("Outline").transform.parent;
+                GameObject.Find("Outline").transform.parent = GameObject.Find("Circle").transform;
+                GameObject.Find("Outline").transform.localEulerAngles = Vector3.zero;
+                GameObject.Find("Outline").transform.localPosition = Vector3.zero;
+                GameObject.Find("Outline").transform.localScale = Vector3.one;
+                GameObject.Find("Outline").transform.parent = parent;
+                GameObject.Find("Outline").transform.rotation = Quaternion.Euler(8.5f, 0, 0);
+                DontDestroyOnLoad(GameObject.Find("Outline"));
+                configured = true;
+            }catch { }
+        }
         
         if (request == "") return;
         var data = JsonConvert.DeserializeObject<EditRequestjson>(request);
