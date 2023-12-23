@@ -16,6 +16,7 @@ public class HttpHandler : MonoBehaviour
     Task listen;
     string request = "";
     private int sceneNo = 2;
+    //private int sceneNo = 1; //2 for 3D
 
     void Start()
     {

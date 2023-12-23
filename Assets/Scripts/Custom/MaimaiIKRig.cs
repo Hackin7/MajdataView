@@ -41,11 +41,11 @@ public class MaimaiIKRig : MonoBehaviour
 
 
     AudioTimeProvider timeProvider;
-    private float resetTime = 0.01f;
-    private float lerpRatio = 1f;
+    public float resetTime = 0.01f;
+    public float lerpRatio = 1f;
     Dictionary<float, ButtonTouchState> timeButtonMatching = new Dictionary<float, ButtonTouchState>();
     // Time Matching
-    private int totalTimeIndex = 0;
+    public int totalTimeIndex = 0;
     Dictionary<float, int> timeIndexMatching = new Dictionary<float, int>();
     Dictionary<int, float> indexTimeMatching = new Dictionary<int, float>();
     Dictionary<int, ButtonTouchState> indexButtonMatching = new Dictionary<int, ButtonTouchState>();
@@ -174,7 +174,8 @@ public class MaimaiIKRig : MonoBehaviour
                 int currentTimeIndex = timeIndexMatching[entry.Key];
                 int prevTimeIndex = Math.Max(0, currentTimeIndex - 1);
                 int nextTimeIndex = Math.Min(currentTimeIndex, totalTimeIndex);
-                //Debug.Log(prevTimeIndex);
+                // Debug.Log(prevTimeIndex);
+                // Debug.Log(nextTimeIndex);
                 ButtonTouchState prevEntry = indexButtonMatching[prevTimeIndex];
                 ButtonTouchState nextEntry = indexButtonMatching[nextTimeIndex];
 
@@ -192,6 +193,7 @@ public class MaimaiIKRig : MonoBehaviour
                 Vector3 rightPositionNewer = nextHandPos[1] != -1 ? physicalButtons[nextHandPos[1]].transform.position : physicalButtons[6].transform.position;
 
                 if (indexSlideMatching.ContainsKey(nextTimeIndex) && indexSlideMatching[nextTimeIndex] != null) {
+                    // Debug.LogFormat("Slide");
                     if ( indexSlideMatching[nextTimeIndex][0]){
                         leftPositionNew = indexSlideMatching[nextTimeIndex][0].transform.position;
                     }
@@ -199,15 +201,19 @@ public class MaimaiIKRig : MonoBehaviour
                         rightPositionNew = indexSlideMatching[nextTimeIndex][1].transform.position;
                     }
                 }
+
                 // Calculate Position
                 float lerp = timing / (nextTime - entry.Key);
-                //float lerp = 1; //timing / (prevTime - entry.Key);
-               //if (!(0<lerp && lerp < 1)) { continue;  }
-                //Debug.Log(lerp);
+                // float lerp = 1; //timing / (prevTime - entry.Key);
+                // if (!(0<lerp && lerp < 1)) { continue;  }
+                // Debug.Log(lerp);
                 Vector3 leftPosition = Vector3.Lerp(leftPositionOld, leftPositionNew, lerp);
                 Vector3 rightPosition = Vector3.Lerp(rightPositionOld, rightPositionNew, lerp);
                 leftHandObj.position = leftPosition;
                 rightHandObj.position = rightPosition;
+            } else {
+                //Debug.LogFormat("Exited");
+                break; // Exit early, prevent terminating
             }
 
         }
