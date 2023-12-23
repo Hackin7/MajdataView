@@ -48,7 +48,7 @@ public class JsonDataLoader : MonoBehaviour
 
     public void LoadJson(string json, float ignoreOffset)
     {
-        GameObject.Find("NotesParser").GetComponent<NotesParser>().receiveData(json, ignoreOffset);
+        try {GameObject.Find("NotesParser").GetComponent<NotesParser>().receiveData(json, ignoreOffset);}catch{}
         var loadedData = JsonConvert.DeserializeObject<Majson>(json);
         
         diffText.text = loadedData.difficulty;
@@ -133,7 +133,7 @@ public class JsonDataLoader : MonoBehaviour
                         NDCompo.lastFor = (float)note.holdTime;
                         NDCompo.speed = touchSpeed * timing.HSpeed;
                         NDCompo.isFirework = note.isHanabi;
-                        GameObject.Find("Bot").GetComponent<MaimaiIKRig>().slide((float)timing.time, note.startPosition, GOnote);
+                        try {GameObject.Find("Bot").GetComponent<MaimaiIKRig>().slide((float)timing.time, note.startPosition, GOnote);} catch {}
                     }
                     if (note.noteType == SimaiNoteType.Touch)
                     {
@@ -145,7 +145,7 @@ public class JsonDataLoader : MonoBehaviour
                         if (timing.noteList.Count > 1) NDCompo.isEach = true;
                         NDCompo.speed = touchSpeed * timing.HSpeed;
                         NDCompo.isFirework = note.isHanabi;
-                        GameObject.Find("Bot").GetComponent<MaimaiIKRig>().slide((float)timing.time, note.startPosition, GOnote);
+                        try {GameObject.Find("Bot").GetComponent<MaimaiIKRig>().slide((float)timing.time, note.startPosition, GOnote);} catch {}
                     }
                     if (note.noteType == SimaiNoteType.Slide)
                     {
@@ -552,7 +552,7 @@ public class JsonDataLoader : MonoBehaviour
         WifiCompo.sortIndex = slideLayer;
         slideLayer += 5;
 
-        GameObject.Find("Bot").GetComponent<MaimaiIKRig>().slide((float)timing.time, note.startPosition, slideWifi);
+        try {GameObject.Find("Bot").GetComponent<MaimaiIKRig>().slide((float)timing.time, note.startPosition, slideWifi);} catch {}
     }
 
     void InstantiateStar(SimaiTimingPoint timing, SimaiNote note, bool isGroupPart, bool isGroupPartEnd)
@@ -642,8 +642,8 @@ public class JsonDataLoader : MonoBehaviour
         //SliCompo.sortIndex = -7000 + (int)((lastNoteTime - timing.time) * -100) + sort * 5;
         SliCompo.sortIndex = slideLayer++;
         slideLayer += 5;
-
-        GameObject.Find("Bot").GetComponent<MaimaiIKRig>().slide((float)timing.time, note.startPosition, slide_star);
+        
+        try {GameObject.Find("Bot").GetComponent<MaimaiIKRig>().slide((float)timing.time, note.startPosition, slide_star);} catch {}
     }
     bool detectJustType(string content)
     {
