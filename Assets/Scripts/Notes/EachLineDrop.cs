@@ -39,6 +39,6 @@ public class EachLineDrop : MonoBehaviour
         }
         var lineScale = Mathf.Abs(distance / 4.8f);
         transform.localScale = new Vector3(lineScale, lineScale, 1f);
-        transform.rotation = Quaternion.Euler(0, 0, (-45f * (startPosition - 1)));
+        transform.localRotation = Quaternion.Euler(0, 0, (-45f * (startPosition - 1)));
     }
 }

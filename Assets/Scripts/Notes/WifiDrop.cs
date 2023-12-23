@@ -55,12 +55,12 @@ public class WifiDrop : MonoBehaviour
             if (isEach) spriteRenderer_star[i].sprite = eachStar;
             else if (isBreak) spriteRenderer_star[i].sprite = breakStar;
             else spriteRenderer_star[i].sprite = normalStar;
-            star_slide[i].transform.rotation = Quaternion.Euler(0, 0, -22.5f + (-45f * (i + 3 + startPosition)));
+            star_slide[i].transform.localRotation = Quaternion.Euler(0, 0, -22.5f + (-45f * (i + 3 + startPosition)));
             SlidePositionEnd[i] = getPositionFromDistance(4.8f, i + 3 + startPosition);
             star_slide[i].SetActive(false);
         }
 
-        transform.rotation = Quaternion.Euler(0f, 0f, -45f * (startPosition - 1));
+        transform.localRotation = Quaternion.Euler(0f, 0f, -45f * (startPosition - 1));
         slideBars.Clear();
         for (int i = 0; i < transform.childCount - 1; i++)
         {
@@ -154,7 +154,7 @@ public class WifiDrop : MonoBehaviour
             {
                 spriteRenderer_star[i].color = new Color(1, 1, 1, alpha);
                 star_slide[i].transform.localScale = new Vector3(alpha + 0.5f, alpha + 0.5f, alpha + 0.5f);
-                star_slide[i].transform.position = SlidePositionStart;
+                star_slide[i].transform.localPosition = SlidePositionStart;
             }
         }
         if (timing > 0f)
@@ -184,7 +184,7 @@ public class WifiDrop : MonoBehaviour
             for (int i = 0; i < star_slide.Length; i++)
             {
                 spriteRenderer_star[i].color = Color.white;
-                star_slide[i].transform.position = (SlidePositionEnd[i] - SlidePositionStart) * process + SlidePositionStart; //TODO add some runhua
+                star_slide[i].transform.localPosition = (SlidePositionEnd[i] - SlidePositionStart) * process + SlidePositionStart; //TODO add some runhua
                 star_slide[i].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             }
             for (int i = 0; i < pos; i++)

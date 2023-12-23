@@ -122,9 +122,9 @@ public class TapDrop : MonoBehaviour
         }
         else
         {
-            transform.rotation = Quaternion.Euler(0, 0, -22.5f + (-45f * (startPosition - 1)));
+            transform.localRotation = Quaternion.Euler(0, 0, -22.5f + (-45f * (startPosition - 1)));
         }
-        tapLine.transform.rotation = Quaternion.Euler(0, 0, -22.5f + (-45f * (startPosition - 1)));
+        tapLine.transform.localRotation = Quaternion.Euler(0, 0, -22.5f + (-45f * (startPosition - 1)));
 
         if (distance < 1.225f)
         {
@@ -132,13 +132,13 @@ public class TapDrop : MonoBehaviour
 
             distance = 1.225f;
             Vector3 pos = getPositionFromDistance(distance);
-            transform.position = pos;
+            transform.localPosition = pos;
             if (destScale > 0.3f) tapLine.SetActive(true);
         }
         else
         {
             Vector3 pos = getPositionFromDistance(distance);
-            transform.position = pos;
+            transform.localPosition = pos;
             transform.localScale = new Vector3(1f, 1f);
         }
         var lineScale = Mathf.Abs(distance / 4.8f);

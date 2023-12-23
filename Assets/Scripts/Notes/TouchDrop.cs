@@ -61,7 +61,7 @@ public class TouchDrop : MonoBehaviour
             fansSprite[5].sprite = multTouch2EachSprite;
             fansSprite[6].sprite = multTouch3EachSprite;
         }
-        transform.position = GetAreaPos(startPosition, areaPosition);
+        transform.localPosition = GetAreaPos(startPosition, areaPosition);
         justEffect.SetActive(false);
         SetfanColor(new Color(1f, 1f, 1f, 0f));
     }
@@ -79,11 +79,11 @@ public class TouchDrop : MonoBehaviour
         if (timing > 0.05f)
         {
             multTouchHandler.cancelTouch(this);
-            Instantiate(tapEffect, transform.position, transform.rotation);
+            Instantiate(tapEffect, transform.localPosition, transform.localRotation);
             GameObject.Find("ObjectCount").GetComponent<ObjectCount>().touchCount++;
             if (isFirework) {
                 fireworkEffect.SetTrigger("Fire");
-                firework.transform.position = transform.position;
+                firework.transform.localPosition = transform.localPosition;
             }
             Destroy(gameObject);
         }

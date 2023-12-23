@@ -59,12 +59,12 @@ public class TouchHoldDrop : MonoBehaviour
 
         if (timing > lastFor)
         {
-            Instantiate(tapEffect, transform.position, transform.rotation);
+            Instantiate(tapEffect, transform.localPosition, transform.localRotation);
             GameObject.Find("ObjectCount").GetComponent<ObjectCount>().holdCount++;
             if (isFirework)
             {
                 fireworkEffect.SetTrigger("Fire");
-                firework.transform.position = transform.position;
+                firework.transform.localPosition = transform.localPosition;
             }
             Destroy(holdEffect);
             Destroy(gameObject);
@@ -89,7 +89,7 @@ public class TouchHoldDrop : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             var pos = (0.226f + distance) * GetAngle(i);
-            fans[i].transform.position = pos;
+            fans[i].transform.localPosition = pos;
         }
 
         

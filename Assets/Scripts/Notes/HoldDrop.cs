@@ -144,9 +144,9 @@ public class HoldDrop : MonoBehaviour
         }
 
 
-        transform.rotation = Quaternion.Euler(0, 0, -22.5f + (-45f * (startPosition - 1)));
-        tapLine.transform.rotation = transform.rotation;
-        holdEffect.transform.position = getPositionFromDistance(4.8f);
+        transform.localRotation = Quaternion.Euler(0, 0, -22.5f + (-45f * (startPosition - 1)));
+        tapLine.transform.localRotation = transform.localRotation;
+        holdEffect.transform.localPosition = getPositionFromDistance(4.8f);
 
         if (distance < 1.225f)
         {
@@ -156,7 +156,7 @@ public class HoldDrop : MonoBehaviour
             spriteRenderer.size = new Vector2(1.22f, 1.42f);
             distance = 1.225f;
             Vector3 pos = getPositionFromDistance(distance);
-            transform.position = pos;
+            transform.localPosition = pos;
 
             if (destScale > 0.3f) tapLine.SetActive(true);
         }
@@ -186,7 +186,7 @@ public class HoldDrop : MonoBehaviour
                 holdEndRender.enabled = true;
             }
             var dis = (distance - holdDistance) / 2 + holdDistance;
-            transform.position = getPositionFromDistance(dis);//0.325
+            transform.localPosition = getPositionFromDistance(dis);//0.325
             var size = distance - holdDistance + 1.4f;
             spriteRenderer.size = new Vector2(1.22f, size);
             holdEndRender.transform.localPosition = new Vector3(0f, 0.6825f-size/2);
