@@ -13,6 +13,7 @@ public class PhysicalButton : MonoBehaviour
     void Start()
     {
         timeProvider = GameObject.Find("AudioTimeProvider").GetComponent<AudioTimeProvider>();
+        transform.localScale = new Vector3(0.1f, 0.1f, 0.1f); // Disable for now
     }
 
     // Update is called once per frame
@@ -27,14 +28,14 @@ public class PhysicalButton : MonoBehaviour
             var timing = timeProvider.AudioTime - timings[i];
             if (0 < timing && timing < resetTime)
             {
-                transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                //transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 currPressed = true;
             }
         }
         
         if (!currPressed)
         {
-            transform.localScale = new Vector3(1f, 1f, 1f);
+            //transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
 
